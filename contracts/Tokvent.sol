@@ -12,7 +12,7 @@ contract Tokvent {
     // allowed the spender to place into the spender's own account.
     mapping (address => mapping (address => uint)) _allowances;
 
-    constructor () {
+    constructor () public {
         
     }
 
@@ -34,6 +34,13 @@ contract Tokvent {
     function allowance (address tokenOwner, address spender) 
                         public view returns (uint remaining) {
         return _allowances[tokenOwner][spender];
+    }
+
+    function transfer (address to, uint tokens) 
+                       public returns (bool success) {
+        _balances[msg.sender] -= tokens;
+        _balances[to] += tokens;
+        return true;
     }
 
 }
