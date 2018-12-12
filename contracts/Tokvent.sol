@@ -15,6 +15,10 @@ contract Tokvent {
     // Funds have been transferred
     event Transfer (address indexed from, address indexed to, uint tokens);
 
+    // Funds have been approved
+    event Approval (address indexed tokenOwner, address indexed spender, 
+                    uint tokens);
+
     constructor () public {
         
     }
@@ -52,6 +56,7 @@ contract Tokvent {
     function approve (address sender, uint tokens) 
                       public returns (bool success) {
         _allowances[msg.sender][sender] = tokens;
+        emit Approval (msg.sender, spender, tokens);
         return true;
     }
 
