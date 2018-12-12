@@ -18,7 +18,7 @@ contract Tokvent {
 
     // Function that returns total supply of all tokens minted.
     function totalSupply () 
-                        public view returns (uint) {
+                          public view returns (uint) {
         return _totalSupply;
     }
 
@@ -36,10 +36,26 @@ contract Tokvent {
         return _allowances[tokenOwner][spender];
     }
 
-    // Function to transfer a certain amount of funcds to a certain address.
+    // Function to transfer a certain amount of funds to a certain address.
     function transfer (address to, uint tokens) 
                        public returns (bool success) {
         _balances[msg.sender] -= tokens;
+        _balances[to] += tokens;
+        return true;
+    }
+
+    // Function to approve a certain token holder to take a certain amount of
+    // funds from the current token holder.
+    function approve (address sender, uint tokens) 
+                      public returns (bool success) {
+        _allowances[msg.sender][sender] = tokens;
+        return true;
+    }
+
+    function transferFrom (address from, address to, uint tokens) 
+                           public returns (bool success) {
+        _balances[from] -= tokens;
+        _allowances[from][msg.sender] -= tokens;
         _balances[to] += tokens;
         return true;
     }
