@@ -16,27 +16,26 @@ contract Tokvent {
         
     }
 
-    // Function that returns total supply of all tokens minted.
+    // Total supply of all tokens minted.
     function totalSupply () 
                           public view returns (uint) {
         return _totalSupply;
     }
 
-    // Function that returns balance of a particular token owner.
+    // Balance of a particular token owner.
     function balanceOf (address tokenOwner) 
                         public view returns (uint balance) {
         return _balances[tokenOwner];
     }
 
-    // Function that returns amount that the tokenOwner has allowed the spender
-    // to take from the tokenOwner's account and place into the spender's
-    // account.
+    // Amount that the tokenOwner has allowed the spender to take from the 
+    // tokenOwner's account and place into the spender's account.
     function allowance (address tokenOwner, address spender) 
                         public view returns (uint remaining) {
         return _allowances[tokenOwner][spender];
     }
 
-    // Function to transfer a certain amount of funds to a certain address.
+    // Transfer a certain amount of funds to a certain address.
     function transfer (address to, uint tokens) 
                        public returns (bool success) {
         _balances[msg.sender] -= tokens;
@@ -44,14 +43,15 @@ contract Tokvent {
         return true;
     }
 
-    // Function to approve a certain token holder to take a certain amount of
-    // funds from the current token holder.
+    // Approve a certain token holder to take a certain amount of funds from 
+    // the current token holder.
     function approve (address sender, uint tokens) 
                       public returns (bool success) {
         _allowances[msg.sender][sender] = tokens;
         return true;
     }
 
+    // Transfer funds from address "from" and transfer "tokens" to address "to".
     function transferFrom (address from, address to, uint tokens) 
                            public returns (bool success) {
         _balances[from] -= tokens;
