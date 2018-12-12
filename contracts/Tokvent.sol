@@ -10,7 +10,7 @@ contract Tokvent {
 
     // Hash map containing information about how much money the token owner has
     // allowed the spender to place into the spender's own account.
-    mapping (address => (address => uint)) _allowances;
+    mapping (address => mapping (address => uint)) _allowances;
 
     constructor () {
         
