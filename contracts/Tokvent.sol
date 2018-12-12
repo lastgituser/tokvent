@@ -12,6 +12,9 @@ contract Tokvent {
     // allowed the spender to place into the spender's own account.
     mapping (address => mapping (address => uint)) _allowances;
 
+    // Funds have been transferred
+    event Transfer (address indexed from, address indexed to, uint tokens);
+
     constructor () public {
         
     }
@@ -40,6 +43,7 @@ contract Tokvent {
                        public returns (bool success) {
         _balances[msg.sender] -= tokens;
         _balances[to] += tokens;
+        emit Transfer (msg.sender, to, tokens);
         return true;
     }
 
@@ -57,6 +61,7 @@ contract Tokvent {
         _balances[from] -= tokens;
         _allowances[from][msg.sender] -= tokens;
         _balances[to] += tokens;
+        emit Transfer (from, to, tokens);
         return true;
     }
 
