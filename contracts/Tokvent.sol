@@ -53,9 +53,9 @@ contract Tokvent {
 
     // Approve a certain token holder to take a certain amount of funds from 
     // the current token holder.
-    function approve (address sender, uint tokens) 
+    function approve (address spender, uint tokens) 
                       public returns (bool success) {
-        _allowances[msg.sender][sender] = tokens;
+        _allowances[msg.sender][spender] = tokens;
         emit Approval (msg.sender, spender, tokens);
         return true;
     }
