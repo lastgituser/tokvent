@@ -36,6 +36,7 @@ contract Tokvent {
         return _allowances[tokenOwner][spender];
     }
 
+    // Function to transfer a certain amount of funcds to a certain address.
     function transfer (address to, uint tokens) 
                        public returns (bool success) {
         _balances[msg.sender] -= tokens;
