@@ -20,7 +20,8 @@ contract Tokvent {
                     uint tokens);
 
     constructor () public {
-        
+        _totalSupply = 100000;
+        _balances[msg.sender] = 100000;
     }
 
     // Total supply of all tokens minted.
@@ -45,6 +46,9 @@ contract Tokvent {
     // Transfer a certain amount of funds to a certain address.
     function transfer (address to, uint tokens) 
                        public returns (bool success) {
+        require (_balances[msg.sender] >= tokens);
+        require (_allowances[from][msg.sender] >= tokens);
+        require (_balances[to] + tokens > _balances[to]);
         _balances[msg.sender] -= tokens;
         _balances[to] += tokens;
         emit Transfer (msg.sender, to, tokens);
@@ -55,6 +59,8 @@ contract Tokvent {
     // the current token holder.
     function approve (address spender, uint tokens) 
                       public returns (bool success) {
+        require (tokens > 0);
+        require (tokens <= _balances[msg.sender]);
         _allowances[msg.sender][spender] = tokens;
         emit Approval (msg.sender, spender, tokens);
         return true;
@@ -63,6 +69,9 @@ contract Tokvent {
     // Transfer funds from address "from" and transfer "tokens" to address "to".
     function transferFrom (address from, address to, uint tokens) 
                            public returns (bool success) {
+        require (_balances[from] >= tokens);
+        require (_allowances[from][msg.sender] >= tokens);
+        require (_balances[to] + tokens > _balances[to]);
         _balances[from] -= tokens;
         _allowances[from][msg.sender] -= tokens;
         _balances[to] += tokens;
