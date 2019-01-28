@@ -2,6 +2,12 @@ pragma solidity >= 0.4.0 < 0.6.0;
 
 contract Tokvent {
 
+    // Name of contract.
+    string public _name = "Tokvent";
+
+    // Symbol of contract.
+    string public _symbol = "TKVT";
+
     // Total supply of all Tokvent tokens minted.
     uint _totalSupply;
 
@@ -19,9 +25,22 @@ contract Tokvent {
     event Approval (address indexed tokenOwner, address indexed spender, 
                     uint tokens);
 
+    // Constructor that initializes the contract.
     constructor () public {
         _totalSupply = 100000;
         _balances[msg.sender] = 100000;
+    }
+
+    // Name of contract (Tokvent).
+    function name ()
+                   public view returns (string) {
+        return _name;
+    }
+
+    // Symbol of contract (TKVT).
+    function symbol ()
+                   public view returns (string) {
+        return _symbol;
     }
 
     // Total supply of all tokens minted.
